@@ -16,4 +16,5 @@ class SurahResponse extends CoreResponse<SurahModel> {
   }) : super(status: status, data: data, code: code);
 
   factory SurahResponse.fromJson(Map<String, dynamic> json) => _$SurahResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$SurahResponseToJson(this);
 }
