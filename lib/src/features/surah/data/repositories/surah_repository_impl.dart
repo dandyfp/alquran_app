@@ -9,10 +9,11 @@ class SurahRepositoryImpl implements SurahRepository {
 
   SurahRepositoryImpl({required SurahDatasource surahDatasource}) : _surahDatasource = surahDatasource;
   @override
-  Future<Either<ApiError, Surah>> getSurah() async {
+  Future<Either<ApiError, List<Surah>>> getSurah() async {
     try {
       final response = await _surahDatasource.getSurah();
-      return right(response.data!.toEntity());
+      final List<Surah> data = response.data!.map((e) => e.toEntity()).toList();
+      return right(data);
     } catch (e) {
       return left(e as ApiError);
     }

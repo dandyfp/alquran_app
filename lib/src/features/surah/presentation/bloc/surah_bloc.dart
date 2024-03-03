@@ -11,6 +11,7 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
   final GetSurah _getSurah;
   SurahBloc(this._getSurah) : super(SurahInitial()) {
     on<SurahEvent>((event, emit) async {
+      emit(SurahLoading());
       final result = await _getSurah.call(null);
       result.fold(
         (l) => emit(SurahFailure(RequestState.error(l.getErrorMessage()))),

@@ -6,3 +6,5 @@ abstract class SurahEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class OnSurah extends SurahEvent {}

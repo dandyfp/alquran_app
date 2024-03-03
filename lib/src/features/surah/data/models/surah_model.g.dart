@@ -8,6 +8,7 @@ part of 'surah_model.dart';
 
 SurahModel _$SurahModelFromJson(Map<String, dynamic> json) => SurahModel(
       json['number'] as int?,
+      json['englishNameTranslation'] as String?,
       json['name'] as String?,
       json['englishName'] as String?,
       json['numberOfAyahs'] as int?,
@@ -21,4 +22,5 @@ Map<String, dynamic> _$SurahModelToJson(SurahModel instance) =>
       'englishName': instance.englishName,
       'numberOfAyahs': instance.numberOfAyahs,
       'revelationType': instance.revelationType,
+      'englishNameTranslation': instance.englishNameTranslation,
     };

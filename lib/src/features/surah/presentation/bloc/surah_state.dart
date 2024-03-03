@@ -15,8 +15,12 @@ class SurahFailure extends SurahState {
   const SurahFailure(this.requestState);
 }
 
+class SurahLoading extends SurahState {}
+
 class SurahLoaded extends SurahState {
-  final Surah data;
+  final List<Surah> data;
 
   const SurahLoaded(this.data);
+  @override
+  List<Object> get props => [data];
 }

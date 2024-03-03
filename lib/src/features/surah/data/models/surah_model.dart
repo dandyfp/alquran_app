@@ -11,9 +11,11 @@ class SurahModel extends Equatable {
   final String? englishName;
   final int? numberOfAyahs;
   final String? revelationType;
+  final String? englishNameTranslation;
 
   const SurahModel(
     this.number,
+    this.englishNameTranslation,
     this.name,
     this.englishName,
     this.numberOfAyahs,
@@ -27,6 +29,7 @@ class SurahModel extends Equatable {
         englishName,
         numberOfAyahs,
         revelationType,
+        englishNameTranslation,
       ];
 
   factory SurahModel.fromJson(Map<String, dynamic> json) => _$SurahModelFromJson(json);
@@ -38,5 +41,6 @@ class SurahModel extends Equatable {
         englishName: englishName,
         numberOfAyahs: numberOfAyahs,
         revelationType: revelationType,
+        englishNameTranslation: englishNameTranslation,
       );
 }

@@ -8,10 +8,10 @@ part 'surah_response.g.dart';
   explicitToJson: true,
   createToJson: true,
 )
-class SurahResponse extends CoreResponse<SurahModel> {
+class SurahResponse extends CoreResponse<List<SurahModel>> {
   SurahResponse({
     String? status,
-    SurahModel? data,
+    List<SurahModel>? data,
     int? code,
   }) : super(status: status, data: data, code: code);
 
