@@ -1,4 +1,5 @@
 import 'package:alquran_app/src/features/surah/data/datasources/surah_datasource.dart';
+import 'package:alquran_app/src/features/surah/data/models/response/detail_surah_response.dart';
 import 'package:alquran_app/src/features/surah/data/models/response/surah_response.dart';
 import 'package:alquran_app/src/network/api_error.dart';
 import 'package:alquran_app/src/network/network_exceptions.dart';
@@ -13,6 +14,19 @@ class SurahDataSourceImpl implements SurahDatasource {
     try {
       var response = await dio.get("http://api.alquran.cloud/v1/surah");
       return SurahResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      throw ApiError.failure(
+        error: NetworkExceptions.getDioException(e),
+        errorRes: NetworkExceptions.getErrorResponse(e),
+      );
+    }
+  }
+
+  @override
+  Future<DetailSurahResponse> getDetailSurah(int numberSurah) async {
+    try {
+      var response = await dio.get("https://api.quran.gading.dev/surah/$numberSurah");
+      return DetailSurahResponse.fromJson(response.data);
     } on DioException catch (e) {
       throw ApiError.failure(
         error: NetworkExceptions.getDioException(e),

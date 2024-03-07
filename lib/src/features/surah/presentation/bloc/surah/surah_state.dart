@@ -24,3 +24,19 @@ class SurahLoaded extends SurahState {
   @override
   List<Object> get props => [data];
 }
+
+class GetDetailSurahFailure extends SurahState {
+  final RequestState requestState;
+
+  const GetDetailSurahFailure(this.requestState);
+}
+
+class GetDetailSurahLoading extends SurahState {}
+
+class GetDetailSurahLoaded extends SurahState {
+  final DetailSurah data;
+
+  const GetDetailSurahLoaded(this.data);
+  @override
+  List<Object> get props => [data];
+}

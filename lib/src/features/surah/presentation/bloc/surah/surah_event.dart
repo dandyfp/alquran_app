@@ -8,3 +8,9 @@ abstract class SurahEvent extends Equatable {
 }
 
 class OnSurah extends SurahEvent {}
+
+class GetDetailSurahEvent extends SurahEvent {
+  final int numberSurah;
+
+  const GetDetailSurahEvent({required this.numberSurah});
+}

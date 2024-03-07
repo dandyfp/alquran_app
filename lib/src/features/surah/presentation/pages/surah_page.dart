@@ -3,11 +3,11 @@ import 'package:alquran_app/src/core/style/app_colors.dart';
 import 'package:alquran_app/src/core/style/app_images.dart';
 import 'package:alquran_app/src/core/style/app_style.dart';
 import 'package:alquran_app/src/features/surah/domain/entities/surah.dart';
-import 'package:alquran_app/src/features/surah/presentation/bloc/surah_bloc.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:alquran_app/src/features/surah/presentation/bloc/surah/surah_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class SurahPage extends StatefulWidget {
   const SurahPage({super.key});
@@ -71,7 +71,12 @@ class _SurahPageState extends State<SurahPage> {
               var item = state.data[index];
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.5),
-                child: itemSurah(index: index, data: item),
+                child: InkWell(
+                  onTap: () {
+                    context.push('/detail-page', extra: item.number);
+                  },
+                  child: itemSurah(index: index, data: item),
+                ),
               );
             },
           );
