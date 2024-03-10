@@ -1,13 +1,15 @@
+import 'package:alquran_app/src/core/helper/navigator_helper.dart';
 import 'package:alquran_app/src/core/helper/ui_helper.dart';
 import 'package:alquran_app/src/core/style/app_colors.dart';
 import 'package:alquran_app/src/core/style/app_images.dart';
 import 'package:alquran_app/src/core/style/app_style.dart';
 import 'package:alquran_app/src/features/surah/domain/entities/surah.dart';
 import 'package:alquran_app/src/features/surah/presentation/bloc/surah/surah_bloc.dart';
+import 'package:alquran_app/src/features/surah/presentation/pages/detail_surah_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 class SurahPage extends StatefulWidget {
   const SurahPage({super.key});
@@ -19,6 +21,10 @@ class SurahPage extends StatefulWidget {
 class _SurahPageState extends State<SurahPage> {
   refresh() {
     context.read<SurahBloc>().add(OnSurah());
+  }
+
+  Future<void> onRefresh() async {
+    await refresh();
   }
 
   @override
@@ -35,21 +41,24 @@ class _SurahPageState extends State<SurahPage> {
         children: [
           Image.asset(AppImages.bgCompactScreen),
           SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Center(
-                    child: Text(
-                      'Alquran',
-                      style: primaryBoldTextStyle.copyWith(
-                        fontSize: 32,
-                        color: AppColors.white,
+            child: RefreshIndicator.adaptive(
+              onRefresh: () => onRefresh(),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Text(
+                        'Alquran',
+                        style: primaryBoldTextStyle.copyWith(
+                          fontSize: 32,
+                          color: AppColors.white,
+                        ),
                       ),
                     ),
-                  ),
-                  verticalSpace(50),
-                  listSurah()
-                ],
+                    verticalSpace(50),
+                    listSurah()
+                  ],
+                ),
               ),
             ),
           )
@@ -61,7 +70,7 @@ class _SurahPageState extends State<SurahPage> {
   Widget listSurah() {
     return BlocBuilder<SurahBloc, SurahState>(
       builder: (context, state) {
-        if (state is SurahLoading) return const CircularProgressIndicator();
+        if (state is SurahLoading) return Center(child: LottieBuilder.asset(AppImages.animationLoading));
         if (state is SurahLoaded) {
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
@@ -73,7 +82,13 @@ class _SurahPageState extends State<SurahPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.5),
                 child: InkWell(
                   onTap: () {
-                    context.push('/detail-page', extra: item.number);
+                    NavigatorHelper.push(
+                      context,
+                      DetailSurahPage(
+                        number: item.number ?? 0,
+                        surahName: item.name ?? '',
+                      ),
+                    );
                   },
                   child: itemSurah(index: index, data: item),
                 ),
@@ -115,7 +130,7 @@ class _SurahPageState extends State<SurahPage> {
                     width: 40,
                   ),
                   Text(
-                    index.toString(),
+                    (index + 1).toString(),
                     style: primaryMediumTextStyle.copyWith(fontSize: 14),
                   ),
                 ],

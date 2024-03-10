@@ -13,10 +13,14 @@ VerseModel _$VerseModelFromJson(Map<String, dynamic> json) => VerseModel(
       text: json['text'] == null
           ? null
           : TextModel.fromJson(json['text'] as Map<String, dynamic>),
+      audio: json['audio'] == null
+          ? null
+          : AudioModel.fromJson(json['audio'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$VerseModelToJson(VerseModel instance) =>
     <String, dynamic>{
       'number': instance.number,
       'text': instance.text,
+      'audio': instance.audio,
     };

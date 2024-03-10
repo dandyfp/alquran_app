@@ -1,3 +1,4 @@
+import 'package:alquran_app/src/features/surah/data/models/audio_model.dart';
 import 'package:alquran_app/src/features/surah/data/models/number_model.dart';
 import 'package:alquran_app/src/features/surah/data/models/text_model.dart';
 import 'package:alquran_app/src/features/surah/domain/entities/verse.dart';
@@ -10,8 +11,13 @@ part 'verse_model.g.dart';
 class VerseModel extends Equatable {
   final NumberModel? number;
   final TextModel? text;
+  final AudioModel? audio;
 
-  const VerseModel({this.number, this.text});
+  const VerseModel({
+    this.number,
+    this.text,
+    this.audio,
+  });
 
   @override
   List<Object?> get props => [];
@@ -22,5 +28,6 @@ class VerseModel extends Equatable {
   Verse toEntity() => Verse(
         number: number?.toEntity(),
         text: text?.toEntity(),
+        audio: audio?.toEntity(),
       );
 }

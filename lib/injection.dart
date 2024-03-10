@@ -15,7 +15,7 @@ final locator = GetIt.instance;
 
 Future<void> initLocator() async {
   // Bloc
-  locator.registerFactory(() => SurahBloc(locator(), locator()));
+  locator.registerFactory(() => SurahBloc(locator()));
   locator.registerFactory(() => DetailSurahBloc(locator()));
 
   // Respository
