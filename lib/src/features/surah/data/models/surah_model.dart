@@ -1,3 +1,4 @@
+import 'package:alquran_app/src/features/surah/data/collections/surah_collection.dart';
 import 'package:alquran_app/src/features/surah/domain/entities/surah.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -36,6 +37,15 @@ class SurahModel extends Equatable {
   Map<String, dynamic> toJson() => _$SurahModelToJson(this);
 
   Surah toEntity() => Surah(
+        number: number,
+        name: name,
+        englishName: englishName,
+        numberOfAyahs: numberOfAyahs,
+        revelationType: revelationType,
+        englishNameTranslation: englishNameTranslation,
+      );
+
+  SurahCollection toCollection() => SurahCollection(
         number: number,
         name: name,
         englishName: englishName,

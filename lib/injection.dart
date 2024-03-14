@@ -1,5 +1,7 @@
+import 'package:alquran_app/src/core/service/isar_service.dart';
 import 'package:alquran_app/src/features/surah/data/datasources/surah_datasource.dart';
 import 'package:alquran_app/src/features/surah/data/datasources/surah_datasource_impl.dart';
+import 'package:alquran_app/src/features/surah/data/local_data/surah_local_data_service.dart';
 import 'package:alquran_app/src/features/surah/data/repositories/surah_repository_impl.dart';
 import 'package:alquran_app/src/features/surah/domain/repositories/surah_repository.dart';
 import 'package:alquran_app/src/features/surah/domain/usecases/get_detail_surah/get_detail_surah.dart';
@@ -15,11 +17,14 @@ final locator = GetIt.instance;
 
 Future<void> initLocator() async {
   // Bloc
-  locator.registerFactory(() => SurahBloc(locator()));
+  locator.registerFactory(() => SurahBloc(locator(), locator()));
   locator.registerFactory(() => DetailSurahBloc(locator()));
 
   // Respository
-  locator.registerLazySingleton<SurahRepository>(() => SurahRepositoryImpl(surahDatasource: locator()));
+  locator.registerLazySingleton<SurahRepository>(() => SurahRepositoryImpl(
+        locator(),
+        surahDatasource: locator(),
+      ));
 
   // Usescase
   locator.registerLazySingleton(() => GetSurah(surahRepository: locator()));
@@ -42,4 +47,8 @@ Future<void> initLocator() async {
     dio.interceptors.add(httpHelper.getDioInterceptor());
     return dio;
   });
+
+  // Isar db
+  locator.registerLazySingleton(() => IsarService());
+  locator.registerLazySingleton(() => SurahLocalDataService(locator()));
 }
